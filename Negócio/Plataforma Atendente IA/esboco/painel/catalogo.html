@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Catálogo</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .acoes-topo { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .acoes-topo .btn { min-height: 56px; }
+  @media (min-width: 1024px) { .acoes-topo { grid-template-columns: auto auto; justify-content: start; } }
+</style>
+</head>
+<body data-raiz="../" data-tela="catalogo">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Catálogo</h1><div class="sub">12 produtos. A Bia só vende o que está aqui.</div></div>
+    </header>
+
+    <div class="conteudo">
+      <div class="acoes-topo">
+        <button class="btn btn-primario" type="button" data-abrir="folha-foto"><i data-icone="camera"></i>Cadastrar por foto</button>
+        <button class="btn btn-secundario" type="button" data-aviso="Cadastro manual (demonstração)"><i data-icone="mais"></i>Adicionar à mão</button>
+      </div>
+
+      <div class="fichas" role="group" aria-label="Filtrar por tipo">
+        <button class="ficha" data-grupo="cat" aria-pressed="true" type="button">Tudo</button>
+        <button class="ficha" data-grupo="cat" aria-pressed="false" type="button">Camisolas</button>
+        <button class="ficha" data-grupo="cat" aria-pressed="false" type="button">Conjuntos</button>
+        <button class="ficha" data-grupo="cat" aria-pressed="false" type="button">Robes</button>
+        <button class="ficha" data-grupo="cat" aria-pressed="false" type="button">Pijamas</button>
+        <button class="ficha" data-grupo="cat" aria-pressed="false" type="button">Estoque baixo (2)</button>
+      </div>
+
+      <div class="produtos">
+        <button class="cartao produto" type="button" data-abrir="folha-produto">
+          <div class="foto"><div data-produto="camisola" data-cor="#5b8def" data-cor2="#eef3fb"></div></div>
+          <div class="info"><div class="nome">Camisola Aurora azul</div><div class="preco">R$ 89,90</div><div class="tamanhos"><span>P</span><span>M</span><span>G</span><span class="zero">GG</span></div><div class="estoque">7 peças. G: 3</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="camisola" data-cor="#e58bb0" data-cor2="#fbeef4"></div></div>
+          <div class="info"><div class="nome">Camisola Aurora rosa</div><div class="preco">R$ 89,90</div><div class="tamanhos"><span>P</span><span>M</span><span class="zero">G</span><span class="zero">GG</span></div><div class="estoque baixo">2 peças. Só P e M</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="conjunto" data-cor="#2b2b2b" data-cor2="#eeeeea"></div></div>
+          <div class="info"><div class="nome">Conjunto Lis preto</div><div class="preco">R$ 79,90</div><div class="tamanhos"><span>P</span><span>M</span><span>G</span></div><div class="estoque">9 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="conjunto" data-cor="#b23a48" data-cor2="#f9e9ea"></div></div>
+          <div class="info"><div class="nome">Conjunto Lis vinho</div><div class="preco">R$ 79,90</div><div class="tamanhos"><span>M</span><span>G</span></div><div class="estoque">4 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="robe" data-cor="#d14b3d" data-cor2="#fbe9e6"></div></div>
+          <div class="info"><div class="nome">Robe Flor vermelho</div><div class="preco">R$ 129,90</div><div class="tamanhos"><span>M</span><span>G</span><span>GG</span></div><div class="estoque">5 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="robe" data-cor="#f0e3c8" data-cor2="#fbf7ee"></div></div>
+          <div class="info"><div class="nome">Robe Flor creme</div><div class="preco">R$ 129,90</div><div class="tamanhos"><span class="zero">M</span><span class="zero">G</span></div><div class="estoque zerado">Sem estoque. A Bia avisa "encomenda"</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="pijama" data-cor="#b79ae0" data-cor2="#f3eefb"></div></div>
+          <div class="info"><div class="nome">Pijama Nuvem lilás</div><div class="preco">R$ 74,90</div><div class="tamanhos"><span>P</span><span>M</span><span>G</span></div><div class="estoque">6 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="pijama" data-cor="#8fbf9f" data-cor2="#eef7f1"></div></div>
+          <div class="info"><div class="nome">Pijama Nuvem verde</div><div class="preco">R$ 74,90</div><div class="tamanhos"><span>M</span><span>G</span><span>GG</span></div><div class="estoque">8 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="calcinha" data-cor="#f2c4c4" data-cor2="#fdf1f1"></div></div>
+          <div class="info"><div class="nome">Calcinha Brisa, kit 3</div><div class="preco">R$ 59,70</div><div class="tamanhos"><span>P</span><span>M</span><span>G</span><span>GG</span></div><div class="estoque">15 kits</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="vestido" data-cor="#3d6b8f" data-cor2="#e9f0f6"></div></div>
+          <div class="info"><div class="nome">Vestido Lua azul-marinho</div><div class="preco">R$ 159,90</div><div class="tamanhos"><span>P</span><span>M</span><span class="zero">G</span></div><div class="estoque baixo">2 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="camisola" data-cor="#f3f3f3" data-cor2="#fbfbf8"></div></div>
+          <div class="info"><div class="nome">Camisola Noiva branca</div><div class="preco">R$ 119,90</div><div class="tamanhos"><span>M</span><span>G</span></div><div class="estoque">3 peças</div></div>
+        </button>
+        <button class="cartao produto" type="button" data-aviso="Abrir produto (demonstração)">
+          <div class="foto"><div data-produto="conjunto" data-cor="#e3b04b" data-cor2="#fbf3df"></div></div>
+          <div class="info"><div class="nome">Conjunto Sol dourado</div><div class="preco">R$ 84,90</div><div class="tamanhos"><span>P</span><span>M</span></div><div class="estoque">4 peças</div></div>
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="veu" id="folha-foto">
+  <div class="folha" role="dialog" aria-label="Cadastrar por foto">
+    <div class="folha-alca"></div>
+    <h2>Cadastrar por foto</h2>
+    <p class="sub">Tire a foto da peça. A Bia preenche o que der e você só confere.</p>
+    <div class="foto-ia">
+      <div class="previa"><div data-produto="camisola" data-cor="#5fb3a0" data-cor2="#e8f5f1"></div><div class="lendo" id="lendo">Lendo a foto...</div></div>
+      <div class="campos" id="campos-foto" style="display:none">
+        <div class="campo"><label>Nome <span class="preenchido-ia"><i data-icone="brilho"></i>preenchido pela Bia</span></label><input class="entrada" value="Camisola Mar verde-água"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="campo"><label>Tipo <span class="preenchido-ia"><i data-icone="brilho"></i>Bia</span></label><input class="entrada" value="Camisola"></div>
+          <div class="campo"><label>Cor <span class="preenchido-ia"><i data-icone="brilho"></i>Bia</span></label><input class="entrada" value="Verde-água"></div>
+        </div>
+        <div class="campo"><label>Tamanhos e estoque</label><div class="tags"><span class="etiqueta et-verde">P: 1</span><span class="etiqueta et-verde">M: 2</span><span class="etiqueta et-verde">G: 2</span><button class="ficha" type="button" style="min-height:32px;padding:4px 10px;font-size:13px">+ tamanho</button></div></div>
+        <div class="campo"><label>Preço <span class="ajuda">(só você define, a Bia nunca chuta preço)</span></label><input class="entrada" placeholder="R$ 0,00" style="font-size:20px;font-weight:700"></div>
+        <div class="campo"><label>Descrição curta <span class="preenchido-ia"><i data-icone="brilho"></i>Bia</span></label><textarea class="entrada" style="min-height:80px">Camisola de cetim verde-água com alça fina e renda no busto.</textarea></div>
+      </div>
+    </div>
+    <div style="display:grid;gap:8px;margin-top:16px">
+      <button class="btn btn-primario btn-bloco" type="button" data-fechar data-aviso="Produto cadastrado (demonstração)"><i data-icone="check"></i>Confirmar e colocar à venda</button>
+      <button class="btn btn-secundario btn-bloco" type="button" data-fechar>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="veu" id="folha-produto">
+  <div class="folha" role="dialog" aria-label="Produto">
+    <div class="folha-alca"></div>
+    <div style="display:flex;gap:14px;align-items:center;margin-bottom:14px"><div style="width:84px;height:84px;border-radius:12px;overflow:hidden;flex:none" data-produto="camisola" data-cor="#5b8def" data-cor2="#eef3fb"></div><div><h2 style="margin:0">Camisola Aurora azul</h2><span class="etiqueta et-verde">À venda</span></div></div>
+    <div class="campos" style="display:grid;gap:12px">
+      <div class="campo"><label>Preço</label><input class="entrada" value="R$ 89,90" style="font-size:20px;font-weight:700"></div>
+      <div class="campo"><label>Estoque por tamanho</label>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          <div class="campo"><label style="font-size:13px;color:var(--texto-3)">P</label><input class="entrada" value="2" style="text-align:center"></div>
+          <div class="campo"><label style="font-size:13px;color:var(--texto-3)">M</label><input class="entrada" value="2" style="text-align:center"></div>
+          <div class="campo"><label style="font-size:13px;color:var(--texto-3)">G</label><input class="entrada" value="3" style="text-align:center"></div>
+          <div class="campo"><label style="font-size:13px;color:var(--texto-3)">GG</label><input class="entrada" value="0" style="text-align:center"></div>
+        </div>
+      </div>
+      <div class="campo"><label>O que a Bia diz sobre a peça</label><textarea class="entrada" style="min-height:80px">Camisola de cetim azul com renda no busto e alça fina. Veste bem do P ao G.</textarea></div>
+      <div class="item-interruptor" style="border-top:1px solid var(--borda);padding-top:12px"><div class="texto"><strong>Mostrar no WhatsApp</strong><span>Se desligar, a Bia diz que a peça está indisponível.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Mostrar no WhatsApp"></button></div>
+    </div>
+    <div style="display:grid;gap:8px;margin-top:16px">
+      <button class="btn btn-primario btn-bloco" type="button" data-fechar data-aviso="Produto salvo. A Bia já usa o novo valor"><i data-icone="check"></i>Salvar</button>
+      <button class="btn btn-secundario btn-bloco" type="button" data-fechar>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.aoIniciar = function () {
+    document.querySelectorAll('[data-abrir="folha-foto"]').forEach(function (b) {
+      b.addEventListener("click", function () {
+        document.getElementById("lendo").style.display = "grid";
+        document.getElementById("campos-foto").style.display = "none";
+        setTimeout(function () { document.getElementById("lendo").style.display = "none"; document.getElementById("campos-foto").style.display = "grid"; window.pintarIcones(document.getElementById("campos-foto")); }, location.hash === "#completo" ? 0 : 1400);
+      });
+    });
+    if (location.hash === "#foto") { window.abrirFolha("folha-foto"); document.getElementById("lendo").style.display = "none"; document.getElementById("campos-foto").style.display = "grid"; }
+  };
+</script>
+</body>
+</html>

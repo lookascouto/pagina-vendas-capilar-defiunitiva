@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: simulação do WhatsApp</title>
+<link rel="stylesheet" href="assets/inter.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+<style>
+  .simulacao .cabeca { grid-column: 1 / -1; }
+  .simulacao .cabeca h1 { font-size: 26px; }
+  .simulacao .cabeca p { color: var(--texto-2); margin-top: 6px; }
+  .simulacao .cabeca .acoes { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  @media (min-width: 1024px) { .simulacao .cabeca h1 { font-size: 32px; } }
+  .passo-ia.espera { opacity: .35; }
+</style>
+</head>
+<body data-raiz="">
+
+<main class="simulacao">
+  <div class="cabeca">
+    <h1>Simulação: cliente pede uma camisola pelo WhatsApp</h1>
+    <p>A conversa abaixo roda sozinha. A atendente se chama Bia e trabalha para o Ateliê Maria (loja fictícia). Repare que ela não promete prazo de entrega: isso é regra da dona.</p>
+    <div class="acoes">
+      <button class="btn btn-secundario btn-p" type="button" id="reproduzir"><i data-icone="repetir" class="ic-p"></i>Ver de novo</button>
+      <a class="btn btn-fantasma btn-p" href="ligacao.html">Ver a simulação de ligação<i data-icone="seta-direita" class="ic-p"></i></a>
+    </div>
+  </div>
+
+  <div class="celular"><div class="tela zap">
+    <div class="zap-topo">
+      <i data-icone="voltar"></i>
+      <span class="avatar a-ia avatar-p">B</span>
+      <div style="flex:1"><div class="nome">Ateliê Maria</div><div class="sub" id="zap-status">Bia, atendente. Responde em segundos</div></div>
+      <i data-icone="telefone"></i>
+    </div>
+    <div class="zap-corpo" id="zap-corpo"><div class="dia-sep">Hoje</div></div>
+    <div class="zap-rodape"><div class="caixa">Mensagem</div><button class="btn-icone" type="button" aria-label="Gravar áudio"><i data-icone="microfone"></i></button></div>
+  </div></div>
+
+  <aside class="bastidores">
+    <div class="cartao">
+      <h2>O que acontece por trás</h2>
+      <p class="intro">Cada passo aparece quando a atendente faz. É isso que o painel registra.</p>
+      <div class="passos-ia" id="bastidores">
+        <div class="passo-ia espera" data-passo="1"><div class="ic-caixa"><i data-icone="buscar"></i></div><div><strong>Entendeu o pedido</strong><span>Produto: camisola. Tamanho: G. Cor: azul.</span></div></div>
+        <div class="passo-ia espera" data-passo="2"><div class="ic-caixa"><i data-icone="sacola"></i></div><div><strong>Consultou o catálogo</strong><span>Camisola Aurora azul G: R$ 89,90, 3 em estoque. Enviou a foto cadastrada.</span></div></div>
+        <div class="passo-ia espera" data-passo="3"><div class="ic-caixa"><i data-icone="escudo"></i></div><div><strong>Respeitou as regras da dona</strong><span>Não pode prometer prazo. Disse que a Maria confirma.</span></div></div>
+        <div class="passo-ia espera" data-passo="4"><div class="ic-caixa"><i data-icone="microfone"></i></div><div><strong>Transcreveu o áudio</strong><span>Cliente escolheu Pix e quer buscar no ateliê.</span></div></div>
+        <div class="passo-ia espera" data-passo="5"><div class="ic-caixa"><i data-icone="pedidos"></i></div><div><strong>Anotou o pedido 118</strong><span>1 camisola Aurora azul G, R$ 89,90, Pix, retirada. Cliente: Dona Maria Jacomim.</span></div></div>
+        <div class="passo-ia espera" data-passo="6"><div class="ic-caixa"><i data-icone="sino"></i></div><div><strong>Avisou a dona</strong><span>Entrou no resumo do dia e na lista de pedidos do painel.</span></div></div>
+      </div>
+    </div>
+    <div class="cartao">
+      <div class="cartao-topo"><h3>Ver no painel</h3></div>
+      <div class="mapa-lista">
+        <a href="painel/pedidos.html"><span class="num">5</span>O pedido 118 na lista de pedidos<i data-icone="seta-direita"></i></a>
+        <a href="painel/clientes.html"><span class="num">8</span>A memória da Dona Maria Jacomim<i data-icone="seta-direita"></i></a>
+        <a href="painel/atendente.html"><span class="num">9</span>As regras que a Bia seguiu<i data-icone="seta-direita"></i></a>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<script>
+  var ROTEIRO = [
+    { de: "cliente", h: "22:14", html: "Oi, boa noite. Vocês têm camisola G azul?" },
+    { de: "ia", h: "22:14", passo: 1, html: "Oi, Dona Maria, boa noite! Tenho sim." },
+    { de: "ia", h: "22:14", passo: 2, html: 'Essa é a camisola Aurora, azul, tamanho G. Tecido de cetim com renda no busto.<div class="produto-foto" data-produto="camisola" data-cor="#5b8def" data-cor2="#eef3fb"></div><span class="preco">R$ 89,90</span>' },
+    { de: "cliente", h: "22:15", html: "Quero uma. Pode ser pra sexta?" },
+    { de: "ia", h: "22:15", passo: 3, html: "Anotei: 1 camisola Aurora azul, tamanho G, R$ 89,90. Sobre o prazo, a Maria confirma com você amanhã cedo, ela é quem fecha a agenda de costura. Prefere pagar por Pix ou na entrega?" },
+    { de: "cliente", h: "22:16", audio: true, dur: "0:11", transcricao: "Pix. E me manda o endereço do ateliê, se der eu busco lá mesmo." },
+    { de: "ia", h: "22:16", passo: 4, html: "Entendi o seu áudio. Fica por Pix, então, e você pode buscar no ateliê." },
+    { de: "ia", h: "22:16", passo: 5, html: "O endereço é Rua das Flores, 123, Centro (endereço de exemplo). Aberto de segunda a sábado, das 9h às 18h.<br><br>Seu pedido ficou assim:<br><strong>1 camisola Aurora azul, G</strong><br>R$ 89,90, pagamento por Pix, retirada no ateliê.<br><br>A Maria te manda a chave Pix e confirma o dia. Obrigada, Dona Maria!" },
+    { de: "sistema", passo: 6, html: "Pedido 118 anotado no painel" },
+    { de: "cliente", h: "22:17", html: "Obrigada, Bia!" },
+    { de: "ia", h: "22:17", html: "Eu que agradeço. Qualquer coisa é só chamar." }
+  ];
+
+  function ondas() {
+    var h = "", alturas = [8, 14, 20, 12, 24, 18, 10, 22, 16, 8, 20, 26, 14, 10, 18, 22, 12, 8, 16, 20, 10, 14, 24, 12, 8];
+    alturas.forEach(function (a) { h += '<i style="height:' + a + 'px"></i>'; });
+    return h;
+  }
+  function montarBalao(m) {
+    if (m.de === "sistema") {
+      return '<div class="balao-sistema"><i data-icone="pedidos"></i>' + m.html + "</div>";
+    }
+    var cls = "balao " + m.de;
+    var corpo;
+    if (m.audio) {
+      corpo = '<div class="audio"><span class="play"><i data-icone="tocar"></i></span><span class="onda">' + ondas() + '</span><span class="dur">' + m.dur + '</span></div>' +
+        '<div class="transcricao"><i data-icone="brilho"></i><span>A Bia entendeu: "' + m.transcricao + '"</span></div>';
+    } else {
+      corpo = m.html;
+    }
+    var hora = '<span class="hora">' + m.h + (m.de === "cliente" ? ' <i data-icone="check-duplo"></i>' : "") + "</span>";
+    return '<div class="' + cls + '">' + corpo + hora + "</div>";
+  }
+
+  var tocando = null;
+  function reproduzir() {
+    if (tocando) clearTimeout(tocando);
+    var corpo = document.getElementById("zap-corpo");
+    corpo.innerHTML = '<div class="dia-sep">Hoje</div>';
+    document.querySelectorAll(".passo-ia").forEach(function (p) { p.classList.add("espera"); });
+    var i = 0;
+    function proximo() {
+      if (i >= ROTEIRO.length) { document.getElementById("zap-status").textContent = "Bia, atendente. Responde em segundos"; return; }
+      var m = ROTEIRO[i++];
+      var atraso = m.de === "ia" ? 1100 : 900;
+      if (m.de === "ia") {
+        document.getElementById("zap-status").textContent = "Bia está digitando...";
+        var dig = document.createElement("div"); dig.className = "digitando"; dig.innerHTML = "<i></i><i></i><i></i>";
+        corpo.appendChild(dig); corpo.scrollTop = corpo.scrollHeight;
+        tocando = setTimeout(function () {
+          dig.remove();
+          inserir(m);
+          document.getElementById("zap-status").textContent = "Bia, atendente. Responde em segundos";
+          tocando = setTimeout(proximo, 700);
+        }, atraso);
+      } else {
+        tocando = setTimeout(function () { inserir(m); tocando = setTimeout(proximo, 500); }, atraso);
+      }
+    }
+    function inserir(m) {
+      corpo.insertAdjacentHTML("beforeend", montarBalao(m));
+      window.pintarIcones(corpo);
+      corpo.querySelectorAll("[data-produto]").forEach(function (el) { if (!el.firstChild) el.innerHTML = window.produtoSVG(el.getAttribute("data-produto"), el.getAttribute("data-cor"), el.getAttribute("data-cor2")); });
+      corpo.scrollTop = corpo.scrollHeight;
+      if (m.passo) { var p = document.querySelector('.passo-ia[data-passo="' + m.passo + '"]'); if (p) p.classList.remove("espera"); }
+    }
+    proximo();
+  }
+  window.aoIniciar = function () {
+    document.getElementById("reproduzir").addEventListener("click", reproduzir);
+    if (location.hash === "#completo") {
+      var corpo = document.getElementById("zap-corpo");
+      ROTEIRO.forEach(function (m) { corpo.insertAdjacentHTML("beforeend", montarBalao(m)); });
+      window.pintarIcones(corpo);
+      corpo.querySelectorAll("[data-produto]").forEach(function (el) { el.innerHTML = window.produtoSVG(el.getAttribute("data-produto"), el.getAttribute("data-cor"), el.getAttribute("data-cor2")); });
+      document.querySelectorAll(".passo-ia").forEach(function (p) { p.classList.remove("espera"); });
+      corpo.scrollTop = corpo.scrollHeight;
+    } else {
+      reproduzir();
+    }
+  };
+</script>
+</body>
+</html>

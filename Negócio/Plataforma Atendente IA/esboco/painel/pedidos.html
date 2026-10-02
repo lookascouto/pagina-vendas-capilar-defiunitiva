@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Pedidos</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .lista-pedidos { display: grid; gap: 10px; }
+  .pedido[data-status] { border-left: 4px solid var(--azul-600); }
+  .pedido[data-status="separado"] { border-left-color: var(--ambar-500); }
+  .pedido[data-status="entregue"] { border-left-color: var(--verde-500); opacity: .85; }
+  .resumo-lista { display: flex; gap: 10px; flex-wrap: wrap; font-size: 15px; color: var(--texto-2); }
+  .resumo-lista strong { color: var(--texto); }
+  .previa-zap { background: #e5ddd3; border-radius: 12px; padding: 12px; }
+  .previa-zap .balao { max-width: 100%; font-size: 14.5px; white-space: pre-line; }
+  @media (min-width: 1024px) { .lista-pedidos { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body data-raiz="../" data-tela="pedidos">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Pedidos</h1><div class="sub">7 hoje. 2 novos esperando você separar.</div></div>
+      <div class="acoes">
+        <button class="btn btn-secundario btn-icone" type="button" aria-label="Novo pedido" data-aviso="Novo pedido manual (demonstração)"><i data-icone="mais"></i></button>
+      </div>
+    </header>
+
+    <div class="conteudo">
+      <div class="fichas" role="group" aria-label="Filtrar por status">
+        <button class="ficha" data-grupo="st" data-filtro="todos" aria-pressed="true" type="button">Todos (7)</button>
+        <button class="ficha" data-grupo="st" data-filtro="novo" aria-pressed="false" type="button">Novos (2)</button>
+        <button class="ficha" data-grupo="st" data-filtro="separado" aria-pressed="false" type="button">Separados (3)</button>
+        <button class="ficha" data-grupo="st" data-filtro="entregue" aria-pressed="false" type="button">Entregues (2)</button>
+      </div>
+
+      <div class="resumo-lista"><span><strong>R$ 612,30</strong> anotados hoje</span><span>5 pelo WhatsApp, 2 por ligação</span></div>
+
+      <div class="acao-flutuante" style="position:static">
+        <button class="btn btn-primario btn-bloco" type="button" data-abrir="folha-lista"><i data-icone="enviar"></i>Mandar lista pro meu WhatsApp</button>
+      </div>
+
+      <div class="lista-pedidos" id="lista">
+        <article class="cartao pedido" data-status="novo">
+          <div class="pedido-topo"><span class="avatar a-1">MJ</span><div class="quem"><div class="nome">Dona Maria Jacomim</div><div class="itens">1 camisola Aurora azul, G</div><div class="meta"><i data-icone="mensagem"></i>WhatsApp, 22:16 ontem<span>Pix, retira no ateliê</span></div></div><div class="valor">R$ 89,90</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" class="ativo" data-s="novo">Novo</button><button type="button" data-s="separado">Separado</button><button type="button" data-s="entregue">Entregue</button></div>
+            <a class="btn btn-fantasma btn-p" href="conversas.html">Ver conversa</a>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="novo">
+          <div class="pedido-topo"><span class="avatar a-1">MJ</span><div class="quem"><div class="nome">Dona Maria Jacomim</div><div class="itens">1 camisola Aurora azul, G</div><div class="meta"><i data-icone="telefone"></i>Ligação, 10:42<span>Pix, retira no ateliê</span><span class="etiqueta et-ambar">Pode ser repetido do 118</span></div></div><div class="valor">R$ 89,90</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" class="ativo" data-s="novo">Novo</button><button type="button" data-s="separado">Separado</button><button type="button" data-s="entregue">Entregue</button></div>
+            <button class="btn btn-fantasma btn-p" type="button" data-aviso="Pedido 119 juntado ao 118 (demonstração)">Juntar com o 118</button>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="separado">
+          <div class="pedido-topo"><span class="avatar a-2">RS</span><div class="quem"><div class="nome">Renata Souza</div><div class="itens">2 conjuntos Lis preto, M</div><div class="meta"><i data-icone="mensagem"></i>WhatsApp, 09:55<span>Pix pago, entrega em casa</span></div></div><div class="valor">R$ 159,80</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" data-s="novo">Novo</button><button type="button" class="ativo" data-s="separado">Separado</button><button type="button" data-s="entregue">Entregue</button></div>
+            <a class="btn btn-fantasma btn-p" href="conversas.html">Ver conversa</a>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="separado">
+          <div class="pedido-topo"><span class="avatar a-3">CA</span><div class="quem"><div class="nome">Carla Antunes</div><div class="itens">1 robe Flor vermelho, GG</div><div class="meta"><i data-icone="mensagem"></i>WhatsApp, 09:10<span>Na entrega, Bairro Alto</span></div></div><div class="valor">R$ 129,90</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" data-s="novo">Novo</button><button type="button" class="ativo" data-s="separado">Separado</button><button type="button" data-s="entregue">Entregue</button></div>
+            <a class="btn btn-fantasma btn-p" href="conversas.html">Ver conversa</a>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="separado">
+          <div class="pedido-topo"><span class="avatar a-5">JO</span><div class="quem"><div class="nome">Joana Oliveira</div><div class="itens">1 pijama Nuvem lilás, P</div><div class="meta"><i data-icone="telefone"></i>Ligação, 08:30<span>Pix, retira no ateliê</span></div></div><div class="valor">R$ 74,90</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" data-s="novo">Novo</button><button type="button" class="ativo" data-s="separado">Separado</button><button type="button" data-s="entregue">Entregue</button></div>
+            <a class="btn btn-fantasma btn-p" href="conversas.html">Ver conversa</a>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="entregue">
+          <div class="pedido-topo"><span class="avatar a-4">PL</span><div class="quem"><div class="nome">Patrícia Lima</div><div class="itens">3 calcinhas Brisa, sortidas, M</div><div class="meta"><i data-icone="mensagem"></i>WhatsApp, ontem<span>Pix pago, entregue por motoboy</span></div></div><div class="valor">R$ 59,70</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" data-s="novo">Novo</button><button type="button" data-s="separado">Separado</button><button type="button" class="ativo" data-s="entregue">Entregue</button></div>
+          </div>
+        </article>
+
+        <article class="cartao pedido" data-status="entregue">
+          <div class="pedido-topo"><span class="avatar a-2">AB</span><div class="quem"><div class="nome">Ana Beatriz Rocha</div><div class="itens">1 camisola Aurora rosa, M (encomenda)</div><div class="meta"><i data-icone="mensagem"></i>WhatsApp, ontem<span>Pix pago, retirou no ateliê</span></div></div><div class="valor">R$ 98,20</div></div>
+          <div class="pedido-acoes">
+            <div class="status-seg"><button type="button" data-s="novo">Novo</button><button type="button" data-s="separado">Separado</button><button type="button" class="ativo" data-s="entregue">Entregue</button></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="veu" id="folha-lista">
+  <div class="folha" role="dialog" aria-label="Mandar lista pro WhatsApp">
+    <div class="folha-alca"></div>
+    <h2>Mandar lista pro meu WhatsApp</h2>
+    <p class="sub">Assim fica fácil separar as peças com o celular na mão.</p>
+    <div class="fichas" style="margin-bottom:14px">
+      <button class="ficha" data-grupo="ql" aria-pressed="true" type="button">Só os novos e separados</button>
+      <button class="ficha" data-grupo="ql" aria-pressed="false" type="button">Todos de hoje</button>
+    </div>
+    <div class="previa-zap"><div class="balao ia">Lista de pedidos, quinta 2 de outubro
+
+1. Dona Maria Jacomim: 1 camisola Aurora azul, G. R$ 89,90. Pix, retira. NOVO
+2. Renata Souza: 2 conjuntos Lis preto, M. R$ 159,80. Pix pago, entrega. SEPARADO
+3. Carla Antunes: 1 robe Flor vermelho, GG. R$ 129,90. Na entrega. SEPARADO
+4. Joana Oliveira: 1 pijama Nuvem lilás, P. R$ 74,90. Pix, retira. SEPARADO
+
+Total: R$ 454,50<span class="hora">10:48</span></div></div>
+    <div style="display:grid;gap:8px;margin-top:16px">
+      <button class="btn btn-primario btn-bloco" type="button" data-fechar data-aviso="Lista enviada pro seu WhatsApp (demonstração)"><i data-icone="enviar"></i>Enviar agora</button>
+      <button class="btn btn-secundario btn-bloco" type="button" data-fechar>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.aoIniciar = function () {
+    document.querySelectorAll(".status-seg button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var seg = b.parentNode, art = b.closest(".pedido");
+        seg.querySelectorAll("button").forEach(function (x) { x.classList.remove("ativo"); });
+        b.classList.add("ativo");
+        art.setAttribute("data-status", b.getAttribute("data-s"));
+        window.avisar("Pedido marcado como " + b.textContent.toLowerCase());
+      });
+    });
+    document.querySelectorAll('.ficha[data-grupo="st"]').forEach(function (f) {
+      f.addEventListener("click", function () {
+        var filtro = f.getAttribute("data-filtro");
+        document.querySelectorAll(".pedido").forEach(function (p) {
+          p.classList.toggle("oculto", filtro !== "todos" && p.getAttribute("data-status") !== filtro);
+        });
+      });
+    });
+  };
+</script>
+</body>
+</html>

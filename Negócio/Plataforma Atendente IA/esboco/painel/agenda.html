@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Agenda</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .servicos { display: grid; gap: 8px; }
+  .servico { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--borda); }
+  .servico:first-child { border-top: 0; }
+  .servico strong { display: block; font-size: 15.5px; }
+  .servico span { font-size: 13.5px; color: var(--texto-3); }
+  .servico .dur { margin-left: auto; font-weight: 600; font-size: 14px; color: var(--texto-2); white-space: nowrap; }
+  .exemplo-nota { font-size: 14px; color: var(--texto-2); background: var(--superficie-2); border: 1px dashed var(--borda-forte); border-radius: 10px; padding: 10px 12px; }
+</style>
+</head>
+<body data-raiz="../" data-tela="agenda">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Agenda</h1><div class="sub">Hoje, quinta 2 de outubro. 2 provas marcadas pela Bia.</div></div>
+      <div class="acoes"><button class="btn btn-secundario btn-icone" type="button" aria-label="Bloquear horário" data-abrir="folha-bloquear"><i data-icone="bloquear"></i></button></div>
+    </header>
+
+    <div class="conteudo">
+      <div class="semana" role="group" aria-label="Semana">
+        <div class="dia"><div class="ds">Seg</div><div class="dn">29</div><div class="pts"><i></i></div></div>
+        <div class="dia"><div class="ds">Ter</div><div class="dn">30</div><div class="pts"><i></i><i></i></div></div>
+        <div class="dia"><div class="ds">Qua</div><div class="dn">1</div><div class="pts"></div></div>
+        <div class="dia hoje"><div class="ds">Qui</div><div class="dn">2</div><div class="pts"><i></i><i></i></div></div>
+        <div class="dia"><div class="ds">Sex</div><div class="dn">3</div><div class="pts"><i></i><i></i><i></i></div></div>
+        <div class="dia"><div class="ds">Sáb</div><div class="dn">4</div><div class="pts"><i></i></div></div>
+        <div class="dia" style="opacity:.5"><div class="ds">Dom</div><div class="dn">5</div><div class="pts"></div></div>
+      </div>
+
+      <div class="agenda-grade">
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Quinta, 2 de outubro</h2><span class="etiqueta et-verde">4 horários livres</span></div>
+          <div class="horarios">
+            <div class="horario"><div class="h">09:00</div><div class="slot bloqueado"><i data-icone="tesoura" class="ic-p"></i>Costura. A Bia não oferece este horário</div></div>
+            <div class="horario"><div class="h">10:00</div><div class="slot bloqueado"><i data-icone="tesoura" class="ic-p"></i>Costura</div></div>
+            <div class="horario"><div class="h">11:00</div><div class="slot livre">Livre. A Bia pode oferecer</div></div>
+            <div class="horario"><div class="h">12:00</div><div class="slot bloqueado"><i data-icone="pausa" class="ic-p"></i>Almoço</div></div>
+            <div class="horario"><div class="h">14:00</div><div class="slot marcado"><span class="avatar a-4 avatar-p">PL</span><div><strong>Prova de vestido, Patrícia Lima</strong><span>30 min. Vestido Lua azul-marinho, M</span></div><span class="etiqueta et-ia ia-marca">Bia marcou</span></div></div>
+            <div class="horario"><div class="h">15:00</div><div class="slot livre">Livre. A Bia pode oferecer</div></div>
+            <div class="horario"><div class="h">16:00</div><div class="slot livre">Livre. A Bia pode oferecer</div></div>
+            <div class="horario"><div class="h">16:30</div><div class="slot marcado"><span class="avatar a-3 avatar-p">CA</span><div><strong>Ajuste de barra, Carla Antunes</strong><span>20 min. Robe Flor vermelho, GG</span></div><span class="etiqueta et-ia ia-marca">Bia marcou</span></div></div>
+            <div class="horario"><div class="h">17:00</div><div class="slot livre">Livre. A Bia pode oferecer</div></div>
+            <div class="horario"><div class="h">18:00</div><div class="slot bloqueado">Loja fechada</div></div>
+          </div>
+        </section>
+
+        <div style="display:grid;gap:14px">
+          <section class="cartao">
+            <div class="cartao-topo"><h2>Serviços que a Bia marca</h2><button class="btn btn-fantasma btn-p" type="button" data-aviso="Novo serviço (demonstração)"><i data-icone="mais" class="ic-p"></i>Serviço</button></div>
+            <div class="servicos">
+              <div class="servico"><div><strong>Prova de roupa</strong><span>Cliente vem experimentar a peça</span></div><span class="dur">30 min</span></div>
+              <div class="servico"><div><strong>Ajuste de barra ou cintura</strong><span>Com a peça em mãos</span></div><span class="dur">20 min</span></div>
+              <div class="servico"><div><strong>Tirar medidas pra sob encomenda</strong><span>Só com a Maria</span></div><span class="dur">40 min</span></div>
+            </div>
+          </section>
+
+          <section class="cartao">
+            <div class="cartao-topo"><h2>Regras da agenda</h2></div>
+            <div class="lista-interruptores">
+              <div class="item-interruptor"><div class="texto"><strong>Lembrar o cliente 1 dia antes</strong><span>Pelo WhatsApp, com opção de remarcar</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Lembrete"></button></div>
+              <div class="item-interruptor"><div class="texto"><strong>Deixar 15 min entre horários</strong><span>Pra você respirar</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Intervalo"></button></div>
+              <div class="item-interruptor"><div class="texto"><strong>Confirmar com você antes de marcar</strong><span>A Bia pergunta no seu WhatsApp</span></div><button class="interruptor" type="button" role="switch" aria-checked="false" aria-label="Confirmar antes"></button></div>
+            </div>
+          </section>
+
+          <div class="exemplo-nota"><strong>Para salão, personal e clínica:</strong> os serviços viram "corte e escova", "treino" ou "consulta", com vários profissionais. A Bia só oferece horário livre de quem o cliente escolheu.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="veu" id="folha-bloquear">
+  <div class="folha" role="dialog" aria-label="Bloquear horário">
+    <div class="folha-alca"></div>
+    <h2>Bloquear horário</h2>
+    <p class="sub">A Bia para de oferecer esse horário na hora.</p>
+    <div style="display:grid;gap:12px">
+      <div class="campo"><label>Dia</label><input class="entrada" value="Quinta, 2 de outubro"></div>
+      <div class="horas" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="campo"><label>De</label><input class="entrada" value="15:00"></div><div class="campo"><label>Até</label><input class="entrada" value="17:00"></div></div>
+      <div class="campo"><label>Motivo (só você vê)</label><input class="entrada" placeholder="Ex.: buscar tecido"></div>
+    </div>
+    <div style="display:grid;gap:8px;margin-top:16px">
+      <button class="btn btn-primario btn-bloco" type="button" data-fechar data-aviso="Horário bloqueado (demonstração)"><i data-icone="check"></i>Bloquear</button>
+      <button class="btn btn-secundario btn-bloco" type="button" data-fechar>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

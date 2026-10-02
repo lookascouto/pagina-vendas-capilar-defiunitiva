@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Início</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .duvida { display: flex; flex-direction: column; gap: 10px; padding: 14px 0; border-top: 1px solid var(--borda); }
+  .duvida:first-child { border-top: 0; padding-top: 4px; }
+  .duvida .pergunta { font-weight: 600; font-size: 16px; }
+  .duvida .meta { font-size: 13.5px; color: var(--texto-3); }
+  .duvida .acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+</style>
+</head>
+<body data-raiz="../" data-tela="inicio">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Bom dia, Maria</h1><div class="sub">Quinta, 2 de outubro</div></div>
+      <div class="acoes">
+        <button class="btn btn-secundario btn-icone" type="button" aria-label="Avisos" data-abrir="folha-duvidas"><i data-icone="sino"></i></button>
+      </div>
+    </header>
+
+    <div class="conteudo">
+      <div class="status-ia">
+        <span class="ponto"></span>
+        <div><strong>Bia está atendendo</strong><span>Última resposta há 2 min. 4 conversas abertas agora.</span></div>
+        <button class="acao" type="button" data-aviso="Bia pausada. Você recebe tudo no seu WhatsApp (demonstração)">Pausar</button>
+      </div>
+
+      <div class="numeros">
+        <div class="cartao numero"><div class="rotulo"><i data-icone="mensagem"></i>Conversas hoje</div><div class="valor">23</div><div class="delta alta">+6 que ontem</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="pedidos"></i>Pedidos hoje</div><div class="valor">7</div><div class="delta">2 ainda novos</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="dinheiro"></i>Valor anotado</div><div class="valor">R$ 612</div><div class="delta alta">+R$ 180 que ontem</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="calendario"></i>Provas marcadas</div><div class="valor">2</div><div class="delta">14h e 16h30</div></div>
+      </div>
+
+      <button class="destaque-duvidas" type="button" data-abrir="folha-duvidas">
+        <span class="ic-caixa"><i data-icone="duvida"></i></span>
+        <span><strong>3 perguntas que a Bia não soube responder</strong><span>Responda uma vez e ela aprende pra sempre.</span></span>
+        <i data-icone="seta-direita" class="seta"></i>
+      </button>
+
+      <div class="grade-2">
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Últimos pedidos</h2><a href="pedidos.html">Ver todos<i data-icone="seta-direita" class="ic-p"></i></a></div>
+          <div class="linhas">
+            <a class="linha" href="pedidos.html"><span class="avatar a-1 avatar-p">MJ</span><span class="linha-corpo"><span class="linha-titulo">Dona Maria Jacomim</span><span class="linha-sub">1 camisola Aurora azul, G</span></span><span class="linha-fim"><span class="etiqueta et-azul">Novo</span><span class="linha-hora">há 12 min</span></span></a>
+            <a class="linha" href="pedidos.html"><span class="avatar a-2 avatar-p">RS</span><span class="linha-corpo"><span class="linha-titulo">Renata Souza</span><span class="linha-sub">2 conjuntos Lis preto, M</span></span><span class="linha-fim"><span class="etiqueta et-azul">Novo</span><span class="linha-hora">há 40 min</span></span></a>
+            <a class="linha" href="pedidos.html"><span class="avatar a-3 avatar-p">CA</span><span class="linha-corpo"><span class="linha-titulo">Carla Antunes</span><span class="linha-sub">1 robe Flor vermelho, GG</span></span><span class="linha-fim"><span class="etiqueta et-ambar">Separado</span><span class="linha-hora">09:10</span></span></a>
+          </div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Precisam de você</h2><a href="conversas.html">Ver conversas<i data-icone="seta-direita" class="ic-p"></i></a></div>
+          <div class="linhas">
+            <a class="linha" href="conversas.html"><span class="avatar a-4 avatar-p">PL</span><span class="linha-corpo"><span class="linha-titulo">Patrícia Lima</span><span class="linha-sub">Pediu pra falar com você sobre um vestido sob medida</span></span><span class="linha-fim"><span class="etiqueta et-vermelho">Esperando</span><span class="linha-hora">há 5 min</span></span></a>
+            <a class="linha" href="conversas.html"><span class="avatar a-5 avatar-p">JO</span><span class="linha-corpo"><span class="linha-titulo">Joana Oliveira</span><span class="linha-sub">Quer saber se parcela no cartão</span></span><span class="linha-fim"><span class="etiqueta et-ambar">Dúvida</span><span class="linha-hora">há 25 min</span></span></a>
+          </div>
+        </section>
+      </div>
+
+      <section class="cartao">
+        <div class="cartao-topo"><h2>Resumo do dia</h2><span class="etiqueta et-cinza"><i data-icone="relogio"></i>Vai às 18h</span></div>
+        <p style="color:var(--texto-2);font-size:15.5px">A Bia manda um resumo com pedidos, valor e pendências pro seu WhatsApp todo dia. Você pode mudar o horário em Minha atendente.</p>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+          <button class="btn btn-secundario btn-p" type="button" data-aviso="Resumo enviado pro seu WhatsApp (demonstração)"><i data-icone="enviar" class="ic-p"></i>Mandar agora</button>
+          <a class="btn btn-fantasma btn-p" href="atendente.html">Mudar horário</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="veu" id="folha-duvidas">
+  <div class="folha" role="dialog" aria-label="Perguntas sem resposta">
+    <div class="folha-alca"></div>
+    <h2>O que a Bia não soube responder</h2>
+    <p class="sub">Ela avisou o cliente que ia verificar. Responda aqui e ela aprende pra sempre.</p>
+    <div class="linhas">
+      <div class="duvida">
+        <div class="pergunta">"Tem camisola em tamanho GG ou plus size?"</div>
+        <div class="meta">Joana Oliveira, hoje às 09:40. A Bia respondeu: "Vou verificar com a Maria e te aviso."</div>
+        <div class="acoes"><button class="btn btn-primario btn-p" type="button" data-aviso="Resposta salva. A Bia já responde isso sozinha">Responder e ensinar</button><button class="btn btn-fantasma btn-p" type="button">Ignorar</button></div>
+      </div>
+      <div class="duvida">
+        <div class="pergunta">"Vocês fazem vestido de festa sob medida?"</div>
+        <div class="meta">Patrícia Lima, hoje às 10:05</div>
+        <div class="acoes"><button class="btn btn-primario btn-p" type="button" data-aviso="Resposta salva. A Bia já responde isso sozinha">Responder e ensinar</button><button class="btn btn-fantasma btn-p" type="button">Ignorar</button></div>
+      </div>
+      <div class="duvida">
+        <div class="pergunta">"Aceita cartão parcelado?"</div>
+        <div class="meta">Joana Oliveira, hoje às 09:42</div>
+        <div class="acoes"><button class="btn btn-primario btn-p" type="button" data-aviso="Resposta salva. A Bia já responde isso sozinha">Responder e ensinar</button><button class="btn btn-fantasma btn-p" type="button">Ignorar</button></div>
+      </div>
+    </div>
+    <div style="margin-top:16px"><button class="btn btn-secundario btn-bloco" type="button" data-fechar>Fechar</button></div>
+  </div>
+</div>
+
+</body>
+</html>

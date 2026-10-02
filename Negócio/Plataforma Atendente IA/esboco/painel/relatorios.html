@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Relatórios</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .grafico .barra { fill: #1f8f6a; }
+  .grafico .barra.hum { fill: #c9821a; }
+  .grafico .alvo { fill: transparent; cursor: pointer; }
+  .grafico .alvo:hover + .par .barra, .grafico .par:hover .barra { opacity: .85; }
+  .legenda .ia-cor { background: #1f8f6a; } .legenda .hum-cor { background: #c9821a; }
+  .pico div { background: #1f8f6a; } .pico div.max { background: var(--verde-900); }
+  .tabela-toggle { font-size: 14px; color: var(--verde-700); font-weight: 600; background: none; border: 0; padding: 0; margin-top: 8px; }
+  table.dados { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; display: none; }
+  table.dados th, table.dados td { text-align: right; padding: 6px 4px; border-top: 1px solid var(--borda); }
+  table.dados th:first-child, table.dados td:first-child { text-align: left; }
+  table.dados.visivel { display: table; }
+</style>
+</head>
+<body data-raiz="../" data-tela="relatorios">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Relatórios</h1><div class="sub">Como a Bia está trabalhando pra você.</div></div>
+      <div class="acoes"><button class="btn btn-secundario btn-icone" type="button" aria-label="Baixar relatório" data-aviso="Relatório enviado pro seu WhatsApp em PDF (demonstração)"><i data-icone="download"></i></button></div>
+    </header>
+
+    <div class="conteudo">
+      <div class="fichas" role="group" aria-label="Período">
+        <button class="ficha" data-grupo="per" aria-pressed="false" type="button">Hoje</button>
+        <button class="ficha" data-grupo="per" aria-pressed="true" type="button">Últimos 7 dias</button>
+        <button class="ficha" data-grupo="per" aria-pressed="false" type="button">Últimos 30 dias</button>
+        <button class="ficha" data-grupo="per" aria-pressed="false" type="button">Este mês</button>
+      </div>
+
+      <div class="numeros">
+        <div class="cartao numero"><div class="rotulo"><i data-icone="mensagem"></i>Conversas</div><div class="valor">131</div><div class="delta alta">+18% que a semana passada</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="pedidos"></i>Pedidos</div><div class="valor">34</div><div class="delta alta">+6 que a semana passada</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="dinheiro"></i>Valor anotado</div><div class="valor">R$ 3.218</div><div class="delta">R$ 94,65 por pedido</div></div>
+        <div class="cartao numero"><div class="rotulo"><i data-icone="relogio"></i>Tempo de resposta</div><div class="valor">9 s</div><div class="delta">Antes da Bia: 2 h 40 min</div></div>
+      </div>
+
+      <div class="grade-2">
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Conversas por dia</h2></div>
+          <div class="grafico" id="g-conversas"></div>
+          <div class="legenda"><span><i class="ia-cor"></i>Resolvidas pela Bia</span><span><i class="hum-cor"></i>Com ajuda de uma pessoa</span></div>
+          <button class="tabela-toggle" type="button" id="ver-tabela">Ver como tabela</button>
+          <table class="dados" id="tabela-conversas"><thead><tr><th>Dia</th><th>Bia</th><th>Pessoa</th><th>Total</th></tr></thead><tbody></tbody></table>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Quanto a Bia resolveu sozinha</h2></div>
+          <div class="resolvido">
+            <div class="anel"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#e4e2da" stroke-width="12"/><circle cx="50" cy="50" r="40" fill="none" stroke="#1f8f6a" stroke-width="12" stroke-dasharray="216 251" stroke-linecap="round" transform="rotate(-90 50 50)"/><text x="50" y="56" text-anchor="middle" font-size="20" font-weight="800" fill="#1b1b1a" font-family="Inter, system-ui, sans-serif">86%</text></svg></div>
+            <div><strong>113 de 131 conversas</strong><span>sem precisar de você. As outras 18 ela passou pra equipe ou anotou pergunta.</span></div>
+          </div>
+          <div style="margin-top:16px;display:grid;gap:8px">
+            <div class="linha" style="padding:10px 0"><span class="linha-corpo"><span class="linha-titulo" style="font-weight:500">Pediram pra falar com uma pessoa</span></span><strong>7</strong></div>
+            <div class="linha" style="padding:10px 0"><span class="linha-corpo"><span class="linha-titulo" style="font-weight:500">Perguntas que a Bia não soube</span></span><strong>11</strong></div>
+            <div class="linha" style="padding:10px 0"><span class="linha-corpo"><span class="linha-titulo" style="font-weight:500">Respostas aprovadas por você</span></span><strong>24</strong></div>
+          </div>
+        </section>
+
+        <section class="cartao perguntas">
+          <div class="cartao-topo"><h2>Perguntas mais feitas</h2><a href="atendente.html">Ensinar<i data-icone="seta-direita" class="ic-p"></i></a></div>
+          <div class="linhas">
+            <div class="linha"><span class="linha-corpo"><span class="linha-titulo">"Tem no tamanho G?"</span><span class="linha-sub">A Bia responde pelo catálogo</span></span><span class="qtd">41</span></div>
+            <div class="linha"><span class="linha-corpo"><span class="linha-titulo">"Qual o preço da camisola?"</span><span class="linha-sub">A Bia responde pelo catálogo</span></span><span class="qtd">37</span></div>
+            <div class="linha"><span class="linha-corpo"><span class="linha-titulo">"Entrega em casa?"</span><span class="linha-sub">Resposta das suas instruções</span></span><span class="qtd">22</span></div>
+            <div class="linha"><span class="linha-corpo"><span class="linha-titulo">"Aceita cartão?"</span><span class="linha-sub">Resposta das suas instruções</span></span><span class="qtd">15</span></div>
+            <div class="linha"><span class="linha-corpo"><span class="linha-titulo">"Faz sob medida?"</span><span class="linha-sub" style="color:var(--ambar-600)">Sem resposta cadastrada. Ensine a Bia</span></span><span class="qtd">9</span></div>
+          </div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Horário de pico</h2><span class="etiqueta et-cinza">21h às 23h</span></div>
+          <p style="color:var(--texto-2);font-size:15px;margin-bottom:12px">Quase metade das conversas chega depois das 20h, quando a loja está fechada. É aí que a Bia mais trabalha.</p>
+          <div class="pico" id="pico" aria-label="Conversas por hora do dia"></div>
+          <div class="pico-horas"><span>0h</span><span>6h</span><span>12h</span><span>18h</span><span>23h</span></div>
+          <div style="display:flex;gap:8px;margin-top:14px;font-size:14px;color:var(--texto-2)"><span class="etiqueta et-verde">46% fora do horário da loja</span></div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>De onde vêm as conversas</h2></div>
+          <div class="linhas">
+            <div class="linha"><i data-icone="mensagem" style="color:var(--verde-700)"></i><span class="linha-corpo"><span class="linha-titulo">WhatsApp, texto</span></span><strong>92</strong></div>
+            <div class="linha"><i data-icone="microfone" style="color:var(--verde-700)"></i><span class="linha-corpo"><span class="linha-titulo">WhatsApp, áudio</span></span><strong>27</strong></div>
+            <div class="linha"><i data-icone="telefone" style="color:var(--verde-700)"></i><span class="linha-corpo"><span class="linha-titulo">Ligação</span></span><strong>12</strong></div>
+          </div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Peças mais pedidas</h2><a href="catalogo.html">Catálogo<i data-icone="seta-direita" class="ic-p"></i></a></div>
+          <div class="linhas">
+            <div class="linha"><span class="avatar avatar-p" style="border-radius:8px;overflow:hidden;background:none"><span data-produto="camisola" data-cor="#5b8def" data-cor2="#eef3fb" style="display:block;width:36px;height:36px"></span></span><span class="linha-corpo"><span class="linha-titulo">Camisola Aurora azul</span><span class="linha-sub">Mais pedida em G. Estoque: 3 em G</span></span><strong>11</strong></div>
+            <div class="linha"><span class="avatar avatar-p" style="border-radius:8px;overflow:hidden;background:none"><span data-produto="conjunto" data-cor="#2b2b2b" data-cor2="#eeeeea" style="display:block;width:36px;height:36px"></span></span><span class="linha-corpo"><span class="linha-titulo">Conjunto Lis preto</span><span class="linha-sub">Mais pedido em M</span></span><strong>8</strong></div>
+            <div class="linha"><span class="avatar avatar-p" style="border-radius:8px;overflow:hidden;background:none"><span data-produto="robe" data-cor="#d14b3d" data-cor2="#fbe9e6" style="display:block;width:36px;height:36px"></span></span><span class="linha-corpo"><span class="linha-titulo">Robe Flor vermelho</span><span class="linha-sub">Mais pedido em GG</span></span><strong>6</strong></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  var DIAS = [
+    { d: "Sex", ia: 14, hum: 3 }, { d: "Sáb", ia: 18, hum: 2 }, { d: "Dom", ia: 11, hum: 1 },
+    { d: "Seg", ia: 15, hum: 3 }, { d: "Ter", ia: 17, hum: 2 }, { d: "Qua", ia: 19, hum: 4 }, { d: "Qui", ia: 19, hum: 3 }
+  ];
+  function graficoConversas() {
+    var L = 360, A = 190, mE = 28, mB = 24, mT = 10, larguraUtil = L - mE - 8, altUtil = A - mB - mT;
+    var max = 24, passo = larguraUtil / DIAS.length, barraL = Math.min(34, passo * 0.6);
+    var h = '<svg viewBox="0 0 ' + L + ' ' + A + '" role="img" aria-label="Conversas por dia nos últimos 7 dias">';
+    [0, 6, 12, 18, 24].forEach(function (v) {
+      var y = mT + altUtil - (v / max) * altUtil;
+      h += '<line class="grade" x1="' + mE + '" x2="' + L + '" y1="' + y + '" y2="' + y + '"/><text class="eixo" x="' + (mE - 6) + '" y="' + (y + 4) + '" text-anchor="end">' + v + "</text>";
+    });
+    DIAS.forEach(function (dia, i) {
+      var x = mE + i * passo + (passo - barraL) / 2;
+      var hIa = (dia.ia / max) * altUtil, hHum = (dia.hum / max) * altUtil;
+      var yIa = mT + altUtil - hIa, yHum = yIa - hHum - 2;
+      var total = dia.ia + dia.hum;
+      h += '<g class="par" data-dia="' + dia.d + '" data-ia="' + dia.ia + '" data-hum="' + dia.hum + '">';
+      h += '<rect class="barra" x="' + x + '" y="' + yIa + '" width="' + barraL + '" height="' + hIa + '" rx="0"/>';
+      h += '<path class="barra hum" d="M' + x + ' ' + (yHum + hHum) + ' v-' + Math.max(hHum - 4, 0) + ' a4 4 0 0 1 4 -4 h' + (barraL - 8) + ' a4 4 0 0 1 4 4 v' + Math.max(hHum - 4, 0) + ' z"/>';
+      h += '<rect class="alvo" x="' + (mE + i * passo) + '" y="' + mT + '" width="' + passo + '" height="' + altUtil + '"/>';
+      if (i === DIAS.length - 1 || total >= 23) h += '<text class="rotulo" x="' + (x + barraL / 2) + '" y="' + (yHum - 6) + '" text-anchor="middle">' + total + "</text>";
+      h += '<text class="eixo" x="' + (x + barraL / 2) + '" y="' + (A - 6) + '" text-anchor="middle">' + dia.d + "</text></g>";
+    });
+    h += "</svg>" + '<div class="dica" id="dica"></div>';
+    var el = document.getElementById("g-conversas"); el.innerHTML = h;
+    var dica = document.getElementById("dica");
+    el.querySelectorAll(".par").forEach(function (g) {
+      g.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        dica.style.display = "block"; dica.style.left = (e.clientX - r.left) + "px"; dica.style.top = (e.clientY - r.top - 8) + "px";
+        dica.textContent = g.getAttribute("data-dia") + ": " + g.getAttribute("data-ia") + " pela Bia, " + g.getAttribute("data-hum") + " com pessoa";
+      });
+      g.addEventListener("mouseleave", function () { dica.style.display = "none"; });
+    });
+    var tb = document.querySelector("#tabela-conversas tbody"), t = "";
+    DIAS.forEach(function (d) { t += "<tr><td>" + d.d + "</td><td>" + d.ia + "</td><td>" + d.hum + "</td><td>" + (d.ia + d.hum) + "</td></tr>"; });
+    tb.innerHTML = t;
+  }
+  function pico() {
+    var horas = [2, 1, 0, 0, 0, 1, 2, 3, 5, 7, 8, 9, 10, 8, 7, 7, 8, 9, 10, 12, 14, 16, 15, 9];
+    var max = Math.max.apply(null, horas), h = "";
+    horas.forEach(function (v, i) { h += '<div class="' + (v === max ? "max" : "") + '" style="height:' + Math.max(4, (v / max) * 70) + 'px" title="' + i + 'h: ' + v + ' conversas"></div>'; });
+    document.getElementById("pico").innerHTML = h;
+  }
+  window.aoIniciar = function () {
+    graficoConversas(); pico();
+    document.getElementById("ver-tabela").addEventListener("click", function () {
+      var t = document.getElementById("tabela-conversas"); t.classList.toggle("visivel");
+      this.textContent = t.classList.contains("visivel") ? "Esconder tabela" : "Ver como tabela";
+    });
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Conversas</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .conv-lista { padding: 6px 12px; }
+  .conv-lista .linha .linha-sub { max-width: 100%; }
+  .quem-etq { font-size: 12.5px; }
+  .conv-detalhe .zap-corpo { background: transparent; }
+  .conv-vazia { display: none; }
+  @media (min-width: 1024px) { .conv-vazia { display: grid; place-items: center; height: 100%; color: var(--texto-3); } }
+  .humano .balao.ia { border-left: 3px solid var(--ambar-500); }
+  .balao .quem-balao { display: block; font-size: 11.5px; font-weight: 700; color: var(--verde-700); margin-bottom: 2px; }
+  .balao.humano-balao .quem-balao { color: var(--ambar-600); }
+</style>
+</head>
+<body data-raiz="../" data-tela="conversas">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Conversas</h1><div class="sub">23 hoje. A Bia resolveu 19 sozinha.</div></div>
+      <div class="acoes">
+        <button class="btn btn-secundario btn-icone" type="button" aria-label="Equipe" data-abrir="folha-equipe"><i data-icone="pessoas"></i></button>
+      </div>
+    </header>
+
+    <div class="conteudo">
+      <div class="fichas" role="group" aria-label="Filtrar conversas">
+        <button class="ficha" data-grupo="cv" data-filtro="todas" aria-pressed="true" type="button">Todas</button>
+        <button class="ficha" data-grupo="cv" data-filtro="voce" aria-pressed="false" type="button">Precisam de você (2)</button>
+        <button class="ficha" data-grupo="cv" data-filtro="ia" aria-pressed="false" type="button">Com a Bia</button>
+        <button class="ficha" data-grupo="cv" data-filtro="humano" aria-pressed="false" type="button">Com a equipe</button>
+      </div>
+
+      <div class="conversas-grade">
+        <section class="cartao conv-lista">
+          <div class="busca" style="margin:4px 0 8px"><i data-icone="buscar"></i><input class="entrada" type="search" placeholder="Buscar cliente ou mensagem" aria-label="Buscar"></div>
+          <div class="linhas" id="lista-conversas"></div>
+        </section>
+
+        <section class="conv-detalhe" id="detalhe" aria-label="Conversa aberta">
+          <div class="conv-vazia" id="vazia">Escolha uma conversa ao lado</div>
+          <div id="conv-conteudo" style="display:none;flex:1;min-height:0;flex-direction:column">
+            <div class="conv-cabecalho">
+              <button class="btn btn-fantasma btn-icone fechar" type="button" id="fechar-conv" aria-label="Voltar"><i data-icone="voltar"></i></button>
+              <span class="avatar avatar-p" id="d-avatar">MJ</span>
+              <div style="flex:1;min-width:0"><div class="nome" id="d-nome">Nome</div><div class="quem-atende" id="d-quem"><span class="ponto"></span>Bia (IA) está atendendo</div></div>
+              <a class="btn btn-fantasma btn-icone" href="clientes.html" aria-label="Ver cliente"><i data-icone="pessoa"></i></a>
+            </div>
+            <div class="zap" style="flex:1;min-height:0;display:flex;flex-direction:column">
+              <div class="zap-corpo" id="d-corpo"></div>
+            </div>
+            <div class="conv-assumir" id="d-rodape"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="veu" id="folha-equipe">
+  <div class="folha" role="dialog" aria-label="Equipe">
+    <div class="folha-alca"></div>
+    <h2>Quem atende no Ateliê Maria</h2>
+    <p class="sub">A Bia atende tudo primeiro. Quem está na equipe pode assumir qualquer conversa.</p>
+    <div class="linhas">
+      <div class="linha"><span class="avatar a-ia">B</span><span class="linha-corpo"><span class="linha-titulo">Bia</span><span class="linha-sub">Atendente de IA. Ativa 24h.</span></span><span class="etiqueta et-verde">Ativa</span></div>
+      <div class="linha"><span class="avatar a-4">MA</span><span class="linha-corpo"><span class="linha-titulo">Maria (você)</span><span class="linha-sub">Dona. Recebe o resumo e as pendências.</span></span><span class="etiqueta et-verde">Ativa</span></div>
+      <div class="linha"><span class="avatar a-3">CS</span><span class="linha-corpo"><span class="linha-titulo">Carla Silva</span><span class="linha-sub">Ajudante. Atende de terça a sábado.</span></span><span class="etiqueta et-cinza">Fora do horário</span></div>
+    </div>
+    <div style="display:grid;gap:8px;margin-top:16px">
+      <button class="btn btn-secundario btn-bloco" type="button" data-aviso="Convite enviado por WhatsApp (demonstração)"><i data-icone="mais"></i>Adicionar pessoa da equipe</button>
+      <button class="btn btn-fantasma btn-bloco" type="button" data-fechar>Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var CONVERSAS = [
+    { id: 1, ini: "PL", cls: "a-4", nome: "Patrícia Lima", hora: "há 5 min", quem: "voce", naoLida: 2, ultima: "Queria falar com a Maria sobre um vestido sob medida",
+      msgs: [
+        { de: "cliente", h: "10:31", t: "Oi! Vocês fazem vestido de festa sob medida?" },
+        { de: "ia", h: "10:31", t: "Oi, Patrícia! Essa eu preciso confirmar com a Maria, que é quem costura. Vou deixar anotado e ela te responde ainda hoje, tudo bem?" },
+        { de: "cliente", h: "10:32", t: "Tudo bem. Prefiro falar com ela direto, é pra um casamento em novembro." },
+        { de: "sistema", t: "Bia passou a conversa pra Maria" }
+      ] },
+    { id: 2, ini: "JO", cls: "a-5", nome: "Joana Oliveira", hora: "há 25 min", quem: "voce", naoLida: 1, ultima: "Aceita cartão parcelado?",
+      msgs: [
+        { de: "cliente", h: "09:40", t: "Bom dia. Tem camisola em tamanho GG ou plus size?" },
+        { de: "ia", h: "09:40", t: "Bom dia, Joana! Hoje no catálogo tenho até o G. Vou verificar com a Maria se ela faz em GG e te aviso." },
+        { de: "cliente", h: "09:42", t: "Ok. E aceita cartão parcelado?" },
+        { de: "ia", h: "09:42", t: "Essa também vou confirmar com ela. Já anotei suas duas perguntas, respondo em breve." },
+        { de: "sistema", t: "2 perguntas sem resposta anotadas" }
+      ] },
+    { id: 3, ini: "MJ", cls: "a-1", nome: "Dona Maria Jacomim", hora: "ontem 22:17", quem: "ia", naoLida: 0, ultima: "Eu que agradeço. Qualquer coisa é só chamar.",
+      msgs: [
+        { de: "cliente", h: "22:14", t: "Oi, boa noite. Vocês têm camisola G azul?" },
+        { de: "ia", h: "22:14", t: "Oi, Dona Maria, boa noite! Tenho sim. Essa é a camisola Aurora, azul, tamanho G. R$ 89,90." },
+        { de: "cliente", h: "22:15", t: "Quero uma. Pode ser pra sexta?" },
+        { de: "ia", h: "22:15", t: "Anotei: 1 camisola Aurora azul, G, R$ 89,90. A Maria confirma o prazo com você amanhã cedo. Prefere Pix ou na entrega?" },
+        { de: "cliente", h: "22:16", t: "Pix. Eu busco no ateliê." },
+        { de: "ia", h: "22:16", t: "Fechado. Pedido anotado: Pix e retirada. A Maria te manda a chave Pix. Obrigada, Dona Maria!" },
+        { de: "sistema", t: "Pedido 118 anotado" },
+        { de: "cliente", h: "22:17", t: "Obrigada, Bia!" },
+        { de: "ia", h: "22:17", t: "Eu que agradeço. Qualquer coisa é só chamar." }
+      ] },
+    { id: 4, ini: "RS", cls: "a-2", nome: "Renata Souza", hora: "09:58", quem: "ia", naoLida: 0, ultima: "Pix recebido. Separo hoje e te aviso quando sair.",
+      msgs: [
+        { de: "cliente", h: "09:50", t: "Oi, quero 2 conjuntos Lis preto M. Entrega em casa." },
+        { de: "ia", h: "09:50", t: "Oi, Renata! Anotei 2 conjuntos Lis preto, M, R$ 159,80. Pode pagar por Pix na chave do ateliê. Me manda o comprovante que eu confirmo." },
+        { de: "cliente", h: "09:57", t: "Mandei o Pix." },
+        { de: "ia", h: "09:58", t: "Pix recebido. Separo hoje e te aviso quando sair." },
+        { de: "sistema", t: "Pedido 117 anotado e pago" }
+      ] },
+    { id: 5, ini: "CA", cls: "a-3", nome: "Carla Antunes", hora: "09:15", quem: "humano", humano: "Carla Silva", naoLida: 0, ultima: "Carla Silva: Combinado, levo na sexta de manhã.",
+      msgs: [
+        { de: "cliente", h: "09:08", t: "Oi, o robe vermelho GG ainda tem?" },
+        { de: "ia", h: "09:08", t: "Oi, Carla! Tem sim, o robe Flor vermelho GG, R$ 129,90. Quer que eu anote?" },
+        { de: "cliente", h: "09:10", t: "Quero. Mas a entrega pode ser no Bairro Alto? A moça da última vez levou pra mim." },
+        { de: "sistema", t: "Carla Silva assumiu a conversa" },
+        { de: "humano", quem: "Carla Silva", h: "09:15", t: "Oi, Carla! Sou eu, a Carla do ateliê. Combinado, levo na sexta de manhã." }
+      ] },
+    { id: 6, ini: "AB", cls: "a-2", nome: "Ana Beatriz Rocha", hora: "ontem", quem: "ia", naoLida: 0, ultima: "Que bom que gostou! Até a próxima.",
+      msgs: [
+        { de: "cliente", h: "17:20", t: "Peguei a camisola rosa, ficou linda. Obrigada!" },
+        { de: "ia", h: "17:21", t: "Que bom que gostou! Até a próxima." }
+      ] }
+  ];
+  var assumidas = {};
+
+  function etiquetaQuem(c) {
+    if (c.quem === "voce") return '<span class="etiqueta et-vermelho quem-etq">Esperando você</span>';
+    if (c.quem === "humano") return '<span class="etiqueta et-ambar quem-etq">' + c.humano + '</span>';
+    return '<span class="etiqueta et-ia quem-etq">Bia</span>';
+  }
+  function montarLista(filtro) {
+    var h = "";
+    CONVERSAS.forEach(function (c) {
+      var q = assumidas[c.id] ? "humano" : c.quem;
+      if (filtro === "voce" && c.quem !== "voce") return;
+      if (filtro === "ia" && q !== "ia") return;
+      if (filtro === "humano" && q !== "humano" && c.quem !== "voce") return;
+      var cc = Object.assign({}, c, { quem: assumidas[c.id] ? "humano" : c.quem, humano: assumidas[c.id] ? "Maria (você)" : c.humano });
+      h += '<button class="linha" type="button" data-id="' + c.id + '"><span class="avatar ' + c.cls + '">' + c.ini + '</span><span class="linha-corpo"><span class="linha-titulo">' + c.nome + '</span><span class="linha-sub">' + c.ultima + '</span></span><span class="linha-fim"><span class="linha-hora">' + c.hora + '</span>' + (c.naoLida ? '<span class="nao-lida">' + c.naoLida + '</span>' : etiquetaQuem(cc)) + '</span></button>';
+    });
+    document.getElementById("lista-conversas").innerHTML = h;
+    document.querySelectorAll("#lista-conversas .linha").forEach(function (l) { l.addEventListener("click", function () { abrirConversa(+l.getAttribute("data-id")); }); });
+  }
+  function abrirConversa(id) {
+    var c = CONVERSAS.filter(function (x) { return x.id === id; })[0];
+    document.getElementById("vazia").style.display = "none";
+    document.getElementById("conv-conteudo").style.display = "flex";
+    document.getElementById("detalhe").classList.add("aberta");
+    document.querySelectorAll("#lista-conversas .linha").forEach(function (l) { l.classList.toggle("ativa", +l.getAttribute("data-id") === id); });
+    var av = document.getElementById("d-avatar"); av.className = "avatar avatar-p " + c.cls; av.textContent = c.ini;
+    document.getElementById("d-nome").textContent = c.nome;
+    var corpo = document.getElementById("d-corpo"), h = '<div class="dia-sep">' + (c.hora.indexOf("ontem") === 0 ? "Ontem" : "Hoje") + "</div>";
+    c.msgs.forEach(function (m) {
+      if (m.de === "sistema") { h += '<div class="balao-sistema"><i data-icone="info"></i>' + m.t + "</div>"; return; }
+      if (m.de === "humano") { h += '<div class="balao ia humano-balao"><span class="quem-balao">' + m.quem + '</span>' + m.t + '<span class="hora">' + m.h + "</span></div>"; return; }
+      h += '<div class="balao ' + m.de + '">' + (m.de === "ia" ? '<span class="quem-balao">Bia</span>' : "") + m.t + '<span class="hora">' + m.h + (m.de === "cliente" ? ' <i data-icone="check-duplo"></i>' : "") + "</span></div>";
+    });
+    if (assumidas[id]) h += '<div class="balao-sistema"><i data-icone="info"></i>Você assumiu a conversa</div>';
+    corpo.innerHTML = h; window.pintarIcones(corpo); corpo.scrollTop = corpo.scrollHeight;
+    atualizarRodape(c);
+  }
+  function atualizarRodape(c) {
+    var quem = document.getElementById("d-quem"), rod = document.getElementById("d-rodape");
+    if (assumidas[c.id]) {
+      quem.innerHTML = '<span class="ponto" style="background:var(--ambar-500)"></span>Você está atendendo. A Bia está em espera.';
+      rod.innerHTML = '<div class="caixa" style="flex:1;background:#fff;border:1px solid var(--borda-forte);border-radius:999px;padding:11px 16px;color:#888;font-size:15px">Escreva sua resposta</div><button class="btn btn-primario btn-icone" type="button" aria-label="Enviar" data-aviso="Mensagem enviada (demonstração)"><i data-icone="enviar"></i></button><button class="btn btn-secundario btn-p" type="button" id="devolver">Devolver pra Bia</button>';
+      window.pintarIcones(rod);
+      document.getElementById("devolver").addEventListener("click", function () { delete assumidas[c.id]; window.avisar("A Bia voltou a atender " + c.nome); abrirConversa(c.id); montarLista(filtroAtual); });
+    } else if (c.quem === "humano") {
+      quem.innerHTML = '<span class="ponto" style="background:var(--ambar-500)"></span>' + c.humano + " está atendendo";
+      rod.innerHTML = '<span class="texto">' + c.humano + ' está respondendo esta cliente.</span><button class="btn btn-primario btn-p" type="button" id="assumir">Assumir conversa</button>';
+      document.getElementById("assumir").addEventListener("click", function () { assumir(c); });
+    } else {
+      quem.innerHTML = '<span class="ponto"></span>Bia (IA) está atendendo' + (c.quem === "voce" ? ". Cliente espera por você." : "");
+      rod.innerHTML = '<span class="texto">' + (c.quem === "voce" ? "A Bia pediu sua ajuda nesta conversa." : "A Bia está cuidando. Você pode entrar a qualquer momento.") + '</span><button class="btn btn-primario btn-p" type="button" id="assumir"><i data-icone="mao" class="ic-p"></i>Assumir conversa</button>';
+      window.pintarIcones(rod);
+      document.getElementById("assumir").addEventListener("click", function () { assumir(c); });
+    }
+  }
+  function assumir(c) { assumidas[c.id] = true; window.avisar("Você assumiu a conversa com " + c.nome); abrirConversa(c.id); montarLista(filtroAtual); }
+  var filtroAtual = "todas";
+  window.aoIniciar = function () {
+    montarLista("todas");
+    document.querySelectorAll('.ficha[data-grupo="cv"]').forEach(function (f) { f.addEventListener("click", function () { filtroAtual = f.getAttribute("data-filtro"); montarLista(filtroAtual); }); });
+    document.getElementById("fechar-conv").addEventListener("click", function () { document.getElementById("detalhe").classList.remove("aberta"); });
+    if (window.innerWidth >= 1024 || location.hash === "#aberta") abrirConversa(1);
+  };
+</script>
+</body>
+</html>

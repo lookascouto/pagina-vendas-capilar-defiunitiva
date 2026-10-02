@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Minha atendente</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .form-grade { display: grid; gap: 14px; }
+  @media (min-width: 1024px) { .form-grade { grid-template-columns: 1fr 1fr; align-items: start; } .form-grade .largo { grid-column: 1 / -1; } }
+  .nome-ia { display: flex; gap: 14px; align-items: center; }
+  .nome-ia .avatar { width: 64px; height: 64px; font-size: 24px; }
+  .horas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .regras-nao li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--borda); font-size: 15.5px; align-items: flex-start; }
+  .regras-nao li:first-child { border-top: 0; }
+  .regras-nao li .ic { color: var(--vermelho-600); margin-top: 2px; width: 20px; height: 20px; }
+  .regras-nao li button { margin-left: auto; }
+</style>
+</head>
+<body data-raiz="../" data-tela="atendente">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Minha atendente</h1><div class="sub">Como a Bia fala, o que ela pode e o que não pode.</div></div>
+      <div class="acoes"><a class="btn btn-secundario btn-p" href="../whatsapp.html"><i data-icone="mensagem" class="ic-p"></i>Testar</a></div>
+    </header>
+
+    <div class="conteudo">
+      <div class="form-grade">
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Nome e jeito de falar</h2></div>
+          <div class="nome-ia" style="margin-bottom:14px"><span class="avatar a-ia">B</span><div class="campo" style="flex:1"><label for="nome">Nome da atendente</label><input class="entrada" id="nome" value="Bia"></div></div>
+          <div class="campo" style="margin-bottom:14px"><label>Como ela se apresenta</label><input class="entrada" value="Oi! Aqui é a Bia, atendente do Ateliê Maria."></div>
+          <div class="campo">
+            <label>Jeito de falar</label>
+            <div class="opcoes-radio">
+              <label class="opcao-radio"><input type="radio" name="tom" checked><div><strong>Simpática e direta</strong><span>"Oi, Dona Maria! Tenho sim. Fica R$ 89,90."</span></div></label>
+              <label class="opcao-radio"><input type="radio" name="tom"><div><strong>Mais formal</strong><span>"Olá, Sra. Maria. Temos sim, o valor é R$ 89,90."</span></div></label>
+              <label class="opcao-radio"><input type="radio" name="tom"><div><strong>Bem descontraída</strong><span>"Oi, Dona Maria! Tem sim, é linda! R$ 89,90."</span></div></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>Horário</h2></div>
+          <div class="fichas" style="margin-bottom:12px">
+            <button class="ficha" data-grupo="hr" aria-pressed="true" type="button">Responde 24h</button>
+            <button class="ficha" data-grupo="hr" aria-pressed="false" type="button">Só no horário da loja</button>
+          </div>
+          <div class="horas" style="margin-bottom:12px">
+            <div class="campo"><label>Loja abre</label><input class="entrada" value="09:00"></div>
+            <div class="campo"><label>Loja fecha</label><input class="entrada" value="18:00"></div>
+          </div>
+          <div class="campo" style="margin-bottom:12px"><label>Fora do horário, ela avisa</label><textarea class="entrada" style="min-height:80px">Anoto seu pedido agora e a Maria confirma amanhã a partir das 9h.</textarea></div>
+          <div class="campo"><label>Resumo do dia no seu WhatsApp</label><div class="fichas"><button class="ficha" data-grupo="rs" aria-pressed="false" type="button">12h</button><button class="ficha" data-grupo="rs" aria-pressed="true" type="button">18h</button><button class="ficha" data-grupo="rs" aria-pressed="false" type="button">20h</button><button class="ficha" data-grupo="rs" aria-pressed="false" type="button">Não mandar</button></div></div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>O que ela pode fazer</h2></div>
+          <div class="lista-interruptores">
+            <div class="item-interruptor"><div class="texto"><strong>Informar preço e tamanhos</strong><span>Só do que está no catálogo.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Informar preço"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Mandar foto da peça</strong><span>A foto cadastrada no catálogo.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Mandar foto"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Anotar pedido</strong><span>Com nome, peça, tamanho e pagamento.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Anotar pedido"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Passar a chave Pix</strong><span>Chave: cnpj (exemplo). Ela pede o comprovante.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Passar chave Pix"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Marcar prova de roupa na agenda</strong><span>Só nos horários que você liberou.</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Marcar prova"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Informar endereço da loja</strong><span>Rua das Flores, 123, Centro (exemplo).</span></div><button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Informar endereço"></button></div>
+            <div class="item-interruptor"><div class="texto"><strong>Atender ligação por voz</strong><span>Disponível no plano Completo.</span></div><button class="interruptor" type="button" role="switch" aria-checked="false" aria-label="Atender ligação"></button></div>
+          </div>
+        </section>
+
+        <section class="cartao">
+          <div class="cartao-topo"><h2>O que ela nunca pode prometer</h2><button class="btn btn-fantasma btn-p" type="button" data-aviso="Nova regra (demonstração)"><i data-icone="mais" class="ic-p"></i>Regra</button></div>
+          <ul class="regras-nao">
+            <li><i data-icone="bloquear"></i><span>Prazo de entrega ou de costura. Ela diz que você confirma.</span></li>
+            <li><i data-icone="bloquear"></i><span>Desconto, promoção ou "faz por menos".</span></li>
+            <li><i data-icone="bloquear"></i><span>Reservar peça sem pagamento.</span></li>
+            <li><i data-icone="bloquear"></i><span>Peça que não está no catálogo. Ela anota a pergunta pra você.</span></li>
+            <li><i data-icone="bloquear"></i><span>Falar de assunto que não é da loja.</span></li>
+          </ul>
+        </section>
+
+        <section class="cartao largo">
+          <div class="cartao-topo"><h2>Aprovar antes de enviar</h2><span class="etiqueta et-ambar">Bom pra começar</span></div>
+          <div class="item-interruptor" style="border-top:0;padding-top:0">
+            <div class="texto"><strong>Me mostre cada resposta antes de a Bia enviar</strong><span>Você aprova com um toque no seu WhatsApp. Depois de alguns dias, quando confiar, é só desligar. Se você não responder em 10 minutos, a Bia avisa o cliente que você retorna.</span></div>
+            <button class="interruptor" type="button" role="switch" aria-checked="true" aria-label="Aprovar antes de enviar"></button>
+          </div>
+          <div class="previa-fala" style="margin-top:12px;max-width:520px">
+            <div class="balao ia" style="max-width:100%"><strong style="font-size:13px;color:var(--ambar-600);display:block">A Bia quer responder pra Joana Oliveira:</strong>"Tenho sim, Joana! A camisola Aurora rosa, M, fica R$ 89,90."<span class="hora">09:41</span></div>
+            <div style="display:flex;gap:8px"><button class="btn btn-primario btn-p" type="button" data-aviso="Resposta aprovada e enviada (demonstração)"><i data-icone="check" class="ic-p"></i>Aprovar</button><button class="btn btn-secundario btn-p" type="button" data-aviso="Edição aberta (demonstração)"><i data-icone="lapis" class="ic-p"></i>Mudar</button></div>
+          </div>
+        </section>
+
+        <section class="cartao largo">
+          <div class="cartao-topo"><h2>Instruções extras</h2></div>
+          <p style="color:var(--texto-2);font-size:15px;margin-bottom:10px">Escreva como se explicasse pra uma funcionária nova. A Bia segue à risca.</p>
+          <textarea class="entrada" style="min-height:130px">Chame as clientes pelo nome. Se perguntarem de tamanho maior que G, diga que eu faço sob encomenda e anote. Entrega por motoboy só no Centro e no Bairro Alto. Não aceito cartão, só Pix e dinheiro. Se a cliente estiver chateada, peça desculpa e me chame na hora.</textarea>
+        </section>
+      </div>
+
+      <div class="rodape-salvar"><button class="btn btn-primario btn-bloco" type="button" data-aviso="Salvo. A Bia já está seguindo as novas regras"><i data-icone="check"></i>Salvar alterações</button></div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

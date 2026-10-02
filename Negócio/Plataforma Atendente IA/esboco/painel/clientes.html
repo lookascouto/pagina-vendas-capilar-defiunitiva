@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atende: Clientes</title>
+<link rel="stylesheet" href="../assets/inter.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+<style>
+  .clientes-grade { display: grid; gap: 14px; }
+  @media (min-width: 1024px) { .clientes-grade { grid-template-columns: 380px 1fr; align-items: start; } }
+  .cliente-detalhe { display: grid; gap: 14px; }
+  .cliente-topo { display: flex; gap: 14px; align-items: center; }
+  .cliente-topo .avatar { width: 60px; height: 60px; font-size: 22px; }
+  .cliente-topo h2 { font-size: 22px; }
+  .cliente-topo .tel { color: var(--texto-2); font-size: 15px; }
+  .acoes-cliente { display: flex; gap: 8px; flex-wrap: wrap; }
+  .fatos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .fato { background: var(--superficie-2); border-radius: 10px; padding: 10px 12px; }
+  .fato .r { font-size: 13px; color: var(--texto-3); }
+  .fato .v { font-weight: 700; font-size: 17px; }
+  .fechar-cliente { display: inline-flex; }
+  @media (max-width: 1023px) {
+    .cliente-detalhe { display: none; }
+    .cliente-detalhe.aberta { display: grid; position: fixed; inset: 0; top: 37px; z-index: 70; background: var(--fundo); overflow: auto; padding: 12px 16px calc(var(--barra-inferior) + 16px); align-content: start; }
+  }
+  @media (min-width: 1024px) { .fechar-cliente { display: none; } }
+</style>
+</head>
+<body data-raiz="../" data-tela="clientes">
+
+<div class="painel">
+  <main class="painel-principal">
+    <header class="app-barra">
+      <div style="flex:1"><h1>Clientes</h1><div class="sub">48 clientes. A Bia lembra de cada uma.</div></div>
+    </header>
+
+    <div class="conteudo">
+      <div class="clientes-grade">
+        <section class="cartao" style="padding:12px">
+          <div class="busca" style="margin-bottom:8px"><i data-icone="buscar"></i><input class="entrada" type="search" placeholder="Buscar por nome ou telefone" aria-label="Buscar cliente"></div>
+          <div class="fichas" style="margin-bottom:6px">
+            <button class="ficha" data-grupo="cl" aria-pressed="true" type="button">Todas</button>
+            <button class="ficha" data-grupo="cl" aria-pressed="false" type="button">Compraram este mês</button>
+            <button class="ficha" data-grupo="cl" aria-pressed="false" type="button">Sem comprar há 60 dias</button>
+          </div>
+          <div class="linhas" id="lista-clientes">
+            <button class="linha ativa" type="button" data-cliente="1"><span class="avatar a-1">MJ</span><span class="linha-corpo"><span class="linha-titulo">Dona Maria Jacomim</span><span class="linha-sub">Tamanho G. Última conversa ontem.</span></span><span class="linha-fim"><span class="etiqueta et-verde">3 compras</span></span></button>
+            <button class="linha" type="button" data-cliente="2"><span class="avatar a-2">RS</span><span class="linha-corpo"><span class="linha-titulo">Renata Souza</span><span class="linha-sub">Tamanho M. Última conversa hoje.</span></span><span class="linha-fim"><span class="etiqueta et-verde">5 compras</span></span></button>
+            <button class="linha" type="button" data-cliente="3"><span class="avatar a-3">CA</span><span class="linha-corpo"><span class="linha-titulo">Carla Antunes</span><span class="linha-sub">Tamanho GG. Entrega no Bairro Alto.</span></span><span class="linha-fim"><span class="etiqueta et-verde">2 compras</span></span></button>
+            <button class="linha" type="button" data-cliente="4"><span class="avatar a-4">PL</span><span class="linha-corpo"><span class="linha-titulo">Patrícia Lima</span><span class="linha-sub">Tamanho M. Interesse em sob medida.</span></span><span class="linha-fim"><span class="etiqueta et-verde">4 compras</span></span></button>
+            <button class="linha" type="button" data-cliente="5"><span class="avatar a-5">JO</span><span class="linha-corpo"><span class="linha-titulo">Joana Oliveira</span><span class="linha-sub">Tamanho P. Perguntou por GG pra presente.</span></span><span class="linha-fim"><span class="etiqueta et-cinza">1 compra</span></span></button>
+            <button class="linha" type="button" data-cliente="6"><span class="avatar a-2">AB</span><span class="linha-corpo"><span class="linha-titulo">Ana Beatriz Rocha</span><span class="linha-sub">Tamanho M. Gosta de rosa.</span></span><span class="linha-fim"><span class="etiqueta et-cinza">1 compra</span></span></button>
+          </div>
+        </section>
+
+        <section class="cliente-detalhe" id="detalhe">
+          <button class="btn btn-fantasma btn-p fechar-cliente" type="button" id="fechar-cliente" style="justify-self:start"><i data-icone="voltar" class="ic-p"></i>Voltar pra lista</button>
+          <div class="cartao">
+            <div class="cliente-topo"><span class="avatar a-1">MJ</span><div><h2>Dona Maria Jacomim</h2><div class="tel">(11) 9 ####-#### (número de exemplo)</div></div></div>
+            <div class="tags" style="margin:14px 0"><span class="etiqueta et-azul">Tamanho G</span><span class="etiqueta et-cinza">Prefere Pix</span><span class="etiqueta et-cinza">Busca no ateliê</span><span class="etiqueta et-cinza">Cliente desde março</span></div>
+            <div class="acoes-cliente">
+              <a class="btn btn-primario btn-p" href="conversas.html"><i data-icone="mensagem" class="ic-p"></i>Abrir conversa</a>
+              <button class="btn btn-secundario btn-p" type="button" data-aviso="Lembrete anotado (demonstração)"><i data-icone="lapis" class="ic-p"></i>Anotar algo</button>
+            </div>
+          </div>
+
+          <div class="cartao memoria" style="box-shadow:none">
+            <h4><i data-icone="cerebro"></i>O que a Bia lembra dela</h4>
+            <ul>
+              <li>Usa tamanho G em camisola e robe. Em conjunto, pediu M uma vez e trocou por G.</li>
+              <li>Prefere pagar por Pix e buscar no ateliê, mora perto.</li>
+              <li>Gosta de azul e de cetim. Perguntou por rosa na última ligação.</li>
+              <li>Costuma comprar à noite, depois das 22h.</li>
+              <li>Chama a Bia pelo nome. Trata bem, responde rápido.</li>
+            </ul>
+            <div style="margin-top:10px;font-size:13.5px;color:var(--verde-900)">Você pode apagar qualquer lembrança. A cliente pode pedir pra apagar tudo (LGPD).</div>
+          </div>
+
+          <div class="cartao">
+            <div class="cartao-topo"><h3>Resumo</h3></div>
+            <div class="fatos">
+              <div class="fato"><div class="r">Gastou no total</div><div class="v">R$ 349,60</div></div>
+              <div class="fato"><div class="r">Compras</div><div class="v">3</div></div>
+              <div class="fato"><div class="r">Última compra</div><div class="v">ontem</div></div>
+              <div class="fato"><div class="r">Conversas</div><div class="v">6</div></div>
+            </div>
+          </div>
+
+          <div class="cartao">
+            <div class="cartao-topo"><h3>O que ela comprou</h3></div>
+            <div class="compras">
+              <div class="compra"><div><div>1 camisola Aurora azul, G</div><div class="data">Ontem, pelo WhatsApp. Pedido 118, novo</div></div><div class="valor">R$ 89,90</div></div>
+              <div class="compra"><div><div>1 robe Flor vermelho, G</div><div class="data">12 de agosto, pelo WhatsApp. Entregue</div></div><div class="valor">R$ 129,90</div></div>
+              <div class="compra"><div><div>1 camisola Aurora azul, G + 1 conjunto Lis preto, G</div><div class="data">3 de março, por ligação. Entregue</div></div><div class="valor">R$ 129,80</div></div>
+            </div>
+          </div>
+
+          <div class="cartao">
+            <div class="cartao-topo"><h3>Última conversa</h3><a href="conversas.html">Ver toda<i data-icone="seta-direita" class="ic-p"></i></a></div>
+            <div class="previa-fala">
+              <div class="balao cliente">Quero uma. Pode ser pra sexta?<span class="hora">22:15</span></div>
+              <div class="balao ia">Anotei: 1 camisola Aurora azul, G, R$ 89,90. A Maria confirma o prazo com você amanhã cedo.<span class="hora">22:15</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  window.aoIniciar = function () {
+    document.querySelectorAll("#lista-clientes .linha").forEach(function (l) {
+      l.addEventListener("click", function () {
+        document.querySelectorAll("#lista-clientes .linha").forEach(function (x) { x.classList.remove("ativa"); });
+        l.classList.add("ativa");
+        document.getElementById("detalhe").classList.add("aberta");
+        if (l.getAttribute("data-cliente") !== "1") window.avisar("No esboço só a ficha da Dona Maria está preenchida");
+      });
+    });
+    document.getElementById("fechar-cliente").addEventListener("click", function () { document.getElementById("detalhe").classList.remove("aberta"); });
+    if (location.hash === "#aberta") document.getElementById("detalhe").classList.add("aberta");
+  };
+</script>
+</body>
+</html>
